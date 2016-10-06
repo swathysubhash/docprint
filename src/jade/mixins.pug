@@ -1,0 +1,72 @@
+mixin renderUrlParameters(params)
+	if params.length
+		ul.params
+			each param in params
+				li.param
+					.left
+						if param.key.content
+							div
+								span.key #{param.key.content}
+						if param.value.element
+							div
+								span.type #{param.value.element}
+						if param.value.content
+							div
+								span.example Example: #{param.value.content}
+					.right
+						if param.description
+							span.description #{param.description}
+mixin renderAttributes(attrs, ds)
+	if (attrs.element === 'object' && attrs.content)
+		if attrs.content.length
+			ul.attrs
+				each attr in attrs.content
+					li.attr
+						- var c = attr.content
+						.left
+							if c
+								div
+									if c.key.content
+										span.key #{c.key.content}
+								div
+									if c.value.element
+										span.type #{c.value.element}
+									if attr.attributes && attr.attributes.typeAttributes && attr.attributes.typeAttributes.indexOf('required') !== -1
+										span.required Required
+									if attr.attributes && attr.attributes.typeAttributes && attr.attributes.typeAttributes.indexOf('optional') !== -1
+										span.optional Optional
+								div
+									if c.value.attributes && c.value.attributes && c.value.attributes.default
+										span.default Default value is #{c.value.attributes.default}
+									if c.value.content && c.value.element !== 'object'
+										span.example Example: #{c.value.content}
+						.right
+							if attr.meta && attr.meta.description
+								span.description #{attr.meta.description}
+						if c && c.value
+							if c.value.element === 'object'
+								.child-attr
+									.show-child-attr.left
+										if c.key && c.key.content
+											span.expand Expand #{c.key.content} attributes
+											span.close Close #{c.key.content} attributes
+										else
+											span.expand Expand properties
+											span.close Close properties
+									+renderAttributes(c.value, ds)
+							else if (c.value.element !== 'string' || c.value.element !== 'number' || c.value.element !== 'boolean')
+								- var selectedDs = ds.find(function(d) { return d.id === c.value.element });
+								if selectedDs && selectedDs.content
+									.child-attr
+										.show-child-attr.left
+											if c.key && c.key.content
+												span.expand Expand #{c.key.content} attributes
+												span.close Close #{c.key.content} attributes
+											else 
+												span.expand Expand properties
+												span.close Close properties
+										+renderAttributes(selectedDs.content, ds)
+	else
+		- var selectedDs = ds.find(function(d) { return d.id === attrs.element });
+		if selectedDs && selectedDs.content
+			+renderAttributes(selectedDs.content, ds)

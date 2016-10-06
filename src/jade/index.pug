@@ -1,0 +1,151 @@
+doctype html
+html
+	link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|PT+Sans:400,700|Source+Code+Pro")
+	style(type='text/css').
+		!{css}
+body
+	include ./mixins
+	- var intro = output.content && output.content[0]
+	.sidebar
+		nav.sidebar-nav
+			if (intro && intro.description && intro.description.text)
+				.group-header
+					a(href='#top') Overview
+				if intro.description.links && intro.description.links.length
+					ul
+						li.resource-header
+							a.resource-nav-item(href='#' + intro.id) #{capitalize(intro.title)}
+						each link in intro.description.links
+							li.resource-header
+								a.resource-nav-item(href=link) #{capitalize(link.substring(1))}
+
+			each group in output.content[0].content
+				if group.type === 'resourceGroup'
+					.group-header
+						a(href='#' + group.id) #{group.title}
+					ul
+						each resource in group.content
+							li.resource-header
+								a.resource-nav-item(href='#' + resource.id) #{resource.title}
+								ul
+									each transition in resource.content
+										if (transition.type === 'transition')
+											li.transition
+												a.child-nav-item(href='#' + transition.id)
+													span.child-nav-text #{transition.title}
+										else if (transition.type === 'dataStructure')
+											li.transition
+												a.child-nav-item(href="#" + transition.id)
+													span.child-nav-text #{transition.title}
+	.container
+		.doc-body.col-12
+			.top(id='top')
+			- var intro = output.content && output.content[0]
+			.row
+				.col-6.lhs
+					.group-heading(id=intro.id) #{intro.title}
+					if intro.description && intro.description.text
+						.description !{intro.description.text}
+			- console.log(output.content[0])
+			each group in output.content[0].content
+				if group.type === 'resourceGroup'
+					.row
+						.col-6.lhs
+							.group-heading(id=group.id) #{group.title}
+							if group.description && group.description.text
+								.description !{group.description.text}
+						.col-6.rhs
+					each resource in group.content
+						.row
+							.col-6.lhs
+								.resource-heading(id=resource.id) #{resource.title}
+								if resource.description && resource.description.text
+									.description !{resource.description.text}
+							.col-6.rhs
+						each transition in resource.content
+							if (transition.type === 'transition')
+								.row
+									.col-6.lhs
+										.transition-heading(id=transition.id) #{transition.title}
+										if transition.description && transition.description.text
+											.description !{transition.description.text}
+										if transition.xhrContent.urlParameters && transition.xhrContent.urlParameters.length
+											.part-heading Url Parameters
+											+renderUrlParameters(transition.xhrContent.urlParameters)
+										if transition.xhrContent.attributes && transition.xhrContent.attributes.length
+											.part-heading Attributes
+											- var attrs = Array.isArray(transition.xhrContent.attributes) ? transition.xhrContent.attributes[0] : transition.xhrContent.attributes;
+											+renderAttributes(attrs, dataStructures)
+									.col-6.rhs
+										.api-definition
+											.api-definition-heading.rhs-heading Definition
+											.api-definition-description.rhs-highlight.code
+												span.api-method #{transition.xhrContent.method}
+												span.api-url  !{transition.xhrContent.originalUrl.replaceAll('{', '<mark>{').replaceAll('}', '}</mark>')}
+										if transition.xhrContent.headers && transition.xhrContent.headers.length
+											.headers
+												.headers-heading.rhs-heading Headers
+												.headers-description.code
+													each header in transition.xhrContent.headers
+														.header-row
+															span.key #{header.name}: 
+															span.value #{header.value}
+										.sample-request
+											.sample-request-heading.rhs-heading Example Request
+											.sample-request-description.rhs-highlight.code !{transition.snippet.replaceAll('\\\n', '\\\<br>')}
+										.sample-response
+											- var transactions = transition.content && transition.content[0] && transition.content[0].content;
+											each transaction, index in transactions
+												if transaction.type === 'httpResponse'
+													.sample-response-heading.rhs-heading 
+														span Response 
+														if transaction.props && transaction.props.statusCode
+															span.status-code #{transaction.props && transaction.props.statusCode}
+													.sample-response-description-temp.rhs-highlight 
+													- var body = transaction.content && transaction.content[0];
+													if transaction.props && transaction.props.headers && transaction.props.headers.length
+														.headers
+															.headers-heading.rhs-heading Headers
+															.headers-description.code
+																each header in transaction.props.headers
+																	if header.key && header.key.content && header.value && header.value.content
+																		.header-row
+																			span.key #{header.key.content}: 
+																			span.value #{header.value.content}
+													if body && body.type === 'body'
+														.sample-response-body.rhs-heading Body
+														if(body.content.isJSON())
+															.sample-response-body-description.rhs-highlight.code #{JSON.stringify(JSON.parse(body.content), 0, 2)}
+														else
+															.sample-response-body-description.rhs-highlight.code #{body.content}
+							else if (transition.type === 'dataStructure')
+								.row
+									.col-6.lhs
+										.transition-heading(id=transition.id) #{transition.title}
+										.part-heading Attributes
+										+renderAttributes(transition.content[0], dataStructures)
+	script.
+		var docbody = document.querySelector('.doc-body');
+		docbody.addEventListener('click', function(e) {
+			if (e.target.classList.contains('expand') || e.target.classList.contains('close')) {
+				var childAttr = e.target.parentNode.parentNode;
+				childAttr.classList.toggle('show');
+			}
+		});
+		var sidebar = document.querySelector('.sidebar');
+		sidebar.addEventListener('click', function(e) {
+			if (e.target.classList.contains('resource-nav-item')) {
+				var selected = sidebar.querySelector('.resource-header.expand');
+				var resourceHeader = e.target.parentNode;
+				if (selected !== e.target.parentNode) {
+					selected && selected.classList.remove('expand');
+					resourceHeader.classList.add('expand');
+				}
+			} else if (e.target.classList.contains('child-nav-text')) {
+				var selected = sidebar.querySelector('.child-nav-item.selected');
+				if (selected !== e.target.parentNode) {
+					selected && selected.classList.remove('selected');
+					e.target.parentNode.classList.add('selected');
+				}
+			}
+		});

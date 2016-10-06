@@ -1,0 +1,28 @@
+{
+  "name": "docprint",
+  "version": "1.0.0",
+  "description": "Generates documentation from api-blueprint files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/swathysubhash/docprint.git"
+  },
+  "author": "swathysubhash@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swathysubhash/docprint/issues"
+  },
+  "homepage": "https://github.com/swathysubhash/docprint#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "commander": "^2.9.0",
+    "drafter": "^1.1.0",
+    "httpsnippet": "^1.16.5",
+    "markdown-it": "^8.0.0",
+    "markdown-it-anchor": "^2.5.0",
+    "pug": "^0.1.0"
+  }
+}
