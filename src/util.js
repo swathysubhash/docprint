@@ -1,11 +1,12 @@
-function slugify(text)
-{
+var hljs = require('highlight.js');
+
+function slugify(text) {
   return text.toString().toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start of text
-    .replace(/-+$/, '');            // Trim - from end of text
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
 }
 
 var _extends = Object.assign || function (target) { 
@@ -28,9 +29,47 @@ function capitalize(string) {
 	return string && string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function at(o, path, def) {
+    var pointer = o,
+        failed = false;
+
+    if (!o || !path) {
+        return o;
+    }
+    path.split('.').forEach(function(p) {
+        if (pointer[p] !== null && pointer[p] !== undefined && !failed) {
+            pointer = pointer[p];
+        } else {
+            failed = true;
+        }
+    });
+    return failed ? (o[path] || def) : pointer;
+}
+
+
+function stripSlash(str) {
+    if(str.substr(-1) === '/') {
+        return str.substr(0, str.length - 1);
+    }
+    return str;
+}
+
+function highlight(str, lang) {
+	try {
+	return '<pre class="hljs"><code>' +
+		hljs.highlightAuto(str, ['JavaScript', 'JSON', 'HTTP', 'Java', 'Python', 'Ruby', 'PHP']).value +
+		'</code></pre>';
+	} catch (__) {}
+    return str;
+}
+
+
 module.exports = {
 	slugify: slugify,
 	_extends: _extends,
 	sanitize: sanitize,
-	capitalize: capitalize
+	capitalize: capitalize,
+	at: at,
+	stripSlash: stripSlash,
+	highlight: highlight
 }

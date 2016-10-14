@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "docprint": "index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/swathysubhash/docprint.git"
@@ -17,12 +20,15 @@
   },
   "homepage": "https://github.com/swathysubhash/docprint#readme",
   "dependencies": {
-    "cheerio": "^0.22.0",
-    "commander": "^2.9.0",
-    "drafter": "^1.1.0",
-    "httpsnippet": "^1.16.5",
-    "markdown-it": "^8.0.0",
-    "markdown-it-anchor": "^2.5.0",
-    "pug": "^0.1.0"
-  }
+    "cheerio": "0.22.0",
+    "commander": "2.9.0",
+    "drafter": "1.1.0",
+    "highlight.js": "9.7.0",
+    "httpsnippet": "1.16.5",
+    "markdown-it": "8.0.0",
+    "markdown-it-anchor": "2.5.0",
+    "markdown-it-highlightjs": "2.0.0",
+    "mkdirp": "0.5.1",
+    "pug": "^2.0.0-beta4"
+  },
 }

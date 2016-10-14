@@ -54,7 +54,7 @@ mixin renderAttributes(attrs, ds)
 											span.expand Expand properties
 											span.close Close properties
 									+renderAttributes(c.value, ds)
-							else if (c.value.element !== 'string' || c.value.element !== 'number' || c.value.element !== 'boolean')
+							else if (c.value.element !== 'string' && c.value.element !== 'number' && c.value.element !== 'boolean')
 								- var selectedDs = ds.find(function(d) { return d.id === c.value.element });
 								if selectedDs && selectedDs.content
 									.child-attr

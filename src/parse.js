@@ -1,19 +1,23 @@
-
 var HTTPSnippet = require('httpsnippet');
 var cheerio = require('cheerio');
+var util = require('./util');
+var host = require('./host');
 
-var md = require('markdown-it')({
-  html: true,
-  linkify: true,
-  typographer: true
+var slugify = util.slugify;
+var _extends = util._extends;
+var sanitize = util.sanitize;
+var capitalize = util.capitalize;
+var highlight = util.highlight;
+var at = util.at;
+var markdownIt = require('markdown-it');
+
+var md = markdownIt({
+	html: true,
+	linkify: true,
+	typographer: true
 }).use(require('markdown-it-anchor'), {
 	permalink: true
 });
-
-
-
-var util = require('./util');
-var slugify = util.slugify;
 
 module.exports = function parse(result, current, parent) {
 	switch(result.element) {
@@ -23,7 +27,13 @@ module.exports = function parse(result, current, parent) {
 			break;
 		case 'parseResult' :
 			current.type = 'result';
-			current.content = sanitize(result.content.map(function(c) { return parse(c, {}, current) }));
+			current.content = sanitize(
+				result.content.map(
+					function(c) { 
+						return parse(c, {}, current) 
+					}
+				)
+			);
 			break;
 		case 'category':
 			var meta = getMeta(result.meta);
@@ -36,9 +46,15 @@ module.exports = function parse(result, current, parent) {
 					current.content = parseDatastructures(result.content);
 					break;
 				default:
-					current.id = 'group-' + slugify(meta.title);
+					current.id = 'group-' + slugify(meta.title || parent.title);
 					current.title = meta.title;
-					current.content = sanitize(result.content.map(function(c) { return parse(c, {}, current) }));
+					current.content = sanitize(
+						result.content.map(
+							function(c) {
+								return parse(c, {}, current)
+							}
+						)
+					);
 					break;
 			}
 			break;
@@ -48,7 +64,13 @@ module.exports = function parse(result, current, parent) {
 			current.title = meta.title;
 			current.id = 'resource-' + slugify(meta.title);
 			current.props = getProps(result.attributes);
-			current.content = sanitize(result.content.map(function(c) { return parse(c, {}, current) }));
+			current.content = sanitize(
+				result.content.map(
+					function(c) {
+						return parse(c, {}, current)
+					}
+				)
+			);
 			break;
 		case 'transition':
 			var meta = getMeta(result.meta);
@@ -56,19 +78,51 @@ module.exports = function parse(result, current, parent) {
 			current.title = meta.title;
 			current.props = getProps(result.attributes);
 			current.content = sanitize(result.content.map(function(c) { return parse(c, {}, current) }));
-			var method = current.content[0] 
-				&& current.content[0].content 
-				&& current.content[0].content[0] 
-				&& current.content[0].content[0].props 
-				&& current.content[0].content[0].props.method;
+			var method = at(current, 'content.0.content.0.props.method'); 
 			current.id = 'transition-' + slugify(meta.title + '-' + method);
 			current.xhrContent = xhrContent(current, parent);
 			current.snippet = unescape((new HTTPSnippet(current.xhrContent)).convert('shell', 'curl'));
+			current.snippets = [];
+
+			var lang = [{ 
+				name: 'curl',
+				target: 'shell',
+				type: 'curl'
+			},{
+				name: 'node',
+				target: 'node',
+				type: 'request'
+			}, {
+				name: 'python',
+				target: 'python',
+				type: 'python3'
+			},{
+				name: 'java',
+				target: 'java',
+				type: 'okhttp'
+			}, {
+				name: 'ruby',
+				target: 'ruby',
+				type: 'native'
+			}, {
+				name: 'php',
+				target: 'php',
+				type: 'ext-curl'
+			}, {
+				name: 'go',
+				target: 'go',
+				type: 'native'
+			}];
+			
+			lang.forEach(function(l) {
+				current.snippets[l.name] = highlight(
+					unescape((new HTTPSnippet(current.xhrContent)).convert(l.target, l.type)));
+			});
+
 			break;
 		case 'dataStructure':
 			var meta = getMeta(result.meta);
 			current.type = 'dataStructure';
-			// current.title = meta.title;
 			current.content = result.content;
 			var trId = capitalize(current.content[0] && current.content[0].meta && current.content[0].meta.id)
 			current.id = 'object-' + slugify(trId);
@@ -86,7 +140,6 @@ module.exports = function parse(result, current, parent) {
 			current.type = 'httpRequest';
 			current.title = meta.title;
 			current.props =  getProps(result.attributes);
-			current.xhr = xhr(current);
 			current.content = sanitize(result.content.map(function(c) { return parse(c, {}, current) }));
 			break;
 		case 'httpResponse':
@@ -101,11 +154,10 @@ module.exports = function parse(result, current, parent) {
 			if (meta.class === 'messageBody') {
 				current.type = 'body';
 				current.title = meta.title;
-				current.content = result.content;	
+				current.content = highlight(result.content);	
 			}
 			break;
 		default:
-			// console.log('not doing anything for', result.element)
 	}
 	return current;
 }
@@ -133,7 +185,7 @@ function getProps(props){
 	try {
 		props.hrefVariables.content.forEach(function(variable) {
 			urlParameters.push({
-				description: variable.meta && variable.meta.description,
+				wfn : variable.meta && variable.meta.description,
 				key: variable.content && variable.content.key,
 				value: variable.content && variable.content.value
 			})
@@ -152,18 +204,6 @@ function getProps(props){
 
 	if (props.data && props.data.element === 'dataStructure') {
 		data = props.data.content;
-		// console.log('@@@', JSON.stringify(props.data, 0 ,2));
-		// var content = props.data.content;
-		// if (Array.isArray(content)) {
-		// 	data = sanitize(props.data.content.map(function(c) { 
-		// 		if(c.content) 
-		// 			return parseDs(c.content) 
-		// 		else 
-		// 			return parseDs(c)
-		// 	}));
-		// } else {
-		// 	data = parseDs(props.data.content);
-		// }
 	}
 	return {
 		url: url,
@@ -186,53 +226,12 @@ function getCopy(content) {
 	}
 }
 
-
-function xhr(request) {
-	return '';
-	var obj = {
-		method: 'unknwo',
-		url: '',
-		httpVersion: "unknown",
-		cookies: [],
-		headers: [],
-		queryString: [],
-		postData: [],
-		headersSize: -1,
-		bodySize: -1,
-		comment: ''
-	};
-	var qS = {
-        name: "param1",
-        value: "value1",
-        comment: ""
-    };
-
-    var pD = {
-    	mimeType: '',
-    	params: [{
-    		name: '',
-    		value: ''
-    	}],
-    	text : '',
-    	comment: ''
-    }
-}
-
-
 function parseDatastructures(dataStructures) {
 	return dataStructures.map(function(ds) {
 		var content = ds.content && ds.content[0];
 		var id = content.meta && content.meta.id;
 		return { id: id , content: content };
 	})
-	// var result = {};
-	// dataStructures.forEach(function(ds) {
-	// 	ds = ds.content[0];
-	// 	if (ds.meta && ds.meta.id) {
-	// 		result[ds.meta.id] = parseDs(ds.content);
-	// 	}
-	// });
-	// return result;
 }
 
 
@@ -246,10 +245,8 @@ function markdown(description) {
 }
 
 function xhrContent(transition, resource) {
-	var HOST = 'http://api.myntra.com'
-	var httpRequest = transition.content[0] 
-				&& transition.content[0].content 
-				&& transition.content[0].content[0];
+	var HOST = host.get();
+	var httpRequest = at(transition, 'content.0.content.0'); 
 	var requestProps = httpRequest && httpRequest.props;
 	requestProps = requestProps || {};
 	transProps = transition.props || {};
@@ -257,22 +254,21 @@ function xhrContent(transition, resource) {
 	var urlParameters = _extends(transProps.urlParameters, requestProps.urlParameters);
 	var headers = requestProps.headers;
 	var postData = httpRequest.content.find(function(c) { return c.type=== 'body' } );
-	var mimeType = headers.find(function(c) { return c.type=== 'Content-Type' } ) || 'application/json';
+	var mimeType = headers.find(function(c) { 
+		return c.type=== 'Content-Type' 
+	} ) || 'application/json';
 	postData = postData && postData.content;
-
 	var url = requestProps.url || transProps.url, 
 		queryStrings=[];
 
-	// TODO ::: Check for existence of url parameters in url
+
 	if (!url && resource.type === 'resource') {
 		url = resource.props && resource.props.url;
 		if (resource.props.urlParameters) {
 			urlParameters = _extends(resource.props.urlParameters, urlParameters) 
 		}
 	}
-
 	hrefSplits = url && url.split('{?') || [];
-	
 	if (hrefSplits.length > 1) {
 		url = hrefSplits[0];
 		queryStrings = hrefSplits[1].replace('}', '').split(',');
@@ -284,7 +280,6 @@ function xhrContent(transition, resource) {
 			value: '{' + qs + '}'
 		}
 	});
-
 	var originalUrl = url;
 	urlParameters.forEach(function(param) {
 		var key = param.key && param.key.content;
@@ -319,46 +314,3 @@ function xhrContent(transition, resource) {
 		comment: ''
 	}
 }
-
-
-/***
-
-
-function parseDs(ds) {
-	var result = {};
-	if (Array.isArray(ds)) {
-		ds.forEach(function(d) {
-			result = parseDsContent(d);
-		})	
-	} else {
-		result = parseDsContent(ds);
-	}
-	return result;
-}
-
-function parseDsContent(d) {
-	var result = {}, i = 0;
-	var c = d.content;
-	if (!c || (!c.key && !c.value)) {
-		result.ref = {};
-		result.ref[i++] = {
-			ds: d.element
-		}
-		d.meta && d.meta.id && (result.ref.type = d.meta.id);
-	} else if (c.value.element === 'object') {
-		result[c.key.content] = {
-			key: c.key,
-			value: c.value,
-			nested: true,
-		};
-		result[c.key.content].value.content = parseDs(c.value.content);
-	} else if (c.key && c.value && c.key.content) {
-		result[c.key.content] = {
-			key: c.key,
-			value: c.value
-		}
-	}
-	return result;
-}
-
-**/

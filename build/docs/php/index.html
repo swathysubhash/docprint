@@ -1,0 +1,712 @@
+<!DOCTYPE html><html><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|PT+Sans:400,700|Source+Code+Pro"><style type="text/css">* {
+	outline: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+ul {
+	padding: 0;
+	list-style: none;
+}
+
+h2 {
+	font-size: 24px;
+    font-weight: 300;
+    padding: 10px 0px;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    font-family: 'Open Sans', sans-serif;
+    cursor: default;
+    transition: linear left 0.1s;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+mark {
+	background: transparent;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.top-element {
+	height: 0px;
+	width: 100%;
+	background: transparent;
+	margin-top: 1px;
+}
+
+.top-header {
+	position: absolute;
+    top: 0;
+    left: 270px;
+    right: 0;
+    z-index: 100;
+    height: 50px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.part-header{
+	width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.headers-available .documentation {
+	display: inline-block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 50px;
+}
+.headers-available .custom-header {
+	display: inline-block;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    height: 50px;
+    z-index: 5000;
+    border-bottom: 1px solid #f6f6f6;
+}
+
+
+.lang-header {
+	padding: 10px 15px;
+    margin-left: 49%;
+    width: 50%;
+    background: white;
+}
+
+.lang-header .lan{
+	padding: 2px 10px;
+    margin-right: 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    background: white;
+    border: 1px solid #f0f0f0;
+}
+
+.lan.selected {
+	background: #3b4151;
+    color: white;
+    border: none;
+}
+.sidebar {
+	font-family: 'Open Sans', sans-serif;
+	bottom: 0;
+	font-weight: 300;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 75;
+    width: 230px;
+	padding: 20px;
+	padding-top: 45px;
+}
+ 
+.sidebar .group-header {
+	color: rgb(82, 98, 105);
+	font-weight: 600;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+
+
+.sidebar li.resource-header.expand .resource-nav-item {
+	font-weight: 600;
+}
+
+.sidebar a.child-nav-item.selected {
+	color: #0095dd;
+}
+
+.sidebar a.child-nav-item:hover {
+	color: #0095dd;
+}
+
+.sidebar li.transition {
+	padding-left: 20px;
+}
+
+.sidebar .resource-header > ul{
+	display: none;
+}
+
+.sidebar .resource-header.expand > ul{
+	display: block;
+}
+
+
+.container {
+	bottom: 0;
+    right: 0;
+    position: absolute;
+    top: 0;
+    left: 270px;
+    z-index: 50;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.doc-body {
+	box-sizing: border-box;
+    background-image: -webkit-linear-gradient(-90deg, #FAFAFA 50%, #ffffff 50%);
+    background-image: linear-gradient(-90deg, #FAFAFA 50%, #ffffff 50%); 
+}
+
+.header-anchor {
+	visibility: hidden;
+}
+
+.col-12 {
+	width: 100%;
+}
+
+.col-6 {
+	width: 50%;
+}
+
+.row {
+	padding-bottom: 50px;
+}
+
+.row:after {
+	clear: both;
+    content: '';
+    display: table;
+}
+
+.lhs, .rhs {
+    float: left;
+    box-sizing: border-box;
+}
+
+.lhs {
+	padding: 0 20px;
+}
+
+.rhs {
+    padding-top: 40px;
+}
+
+code, .code {
+	font-family: Source Code Pro,Menlo,monospace;
+	font-size: 13px;
+	white-space: pre;
+}
+
+
+.doc-body .group-heading {
+	font-size: 24px;
+	margin-bottom: 40px;
+	margin-top: 40px;
+	font-weight: 300;
+}
+
+.doc-body .resource-heading {
+	font-size: 24px;
+	font-weight: 300;
+	padding: 10px 0px;
+}
+
+.doc-body .transition-heading {
+	font-size: 18px;
+	color: #292e31;
+	padding: 10px 0px;
+	font-weight: 600;
+}
+
+.params .left, .attrs .left, .params .right, .attrs .right {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+}
+
+.params .left, .attrs .left {
+	text-align: right;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.params .right, .attrs .right {
+	box-sizing: border-box;
+	padding-left: 10px;
+}
+
+li.param, li.attr {
+	padding: 5px;
+}
+
+li.param:last-child, li.attr:last-child {
+	border-bottom: none;	
+}
+
+.left {
+	color: #aaa;
+}
+
+.left span {
+	padding-right: 10px;
+}
+
+.left .key {
+    color: #000;
+}
+
+.left span.key{
+	font-weight: 600;
+}
+
+.left .type {
+	font-style: italic;
+	font-size: 12px;
+}
+
+.left .required, .left .optional {
+	color: #e66e33;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+.show-child-attr {
+	color: #0095dd;
+}
+
+.child-attr {
+	border-radius: 5px;
+}
+
+.child-attr > .attrs {
+	display: none;
+}
+
+.child-attr > .show-child-attr > .expand {
+	display: block;
+	cursor: pointer;
+}
+.child-attr > .show-child-attr > .close {
+	display: none;
+	cursor: pointer;
+}
+
+.child-attr.show {
+	box-shadow: 0 0 1px 0px rgba(128, 128, 128, 0.5);
+}
+
+.child-attr.show > .attrs{
+	display: block;
+}
+.child-attr.show > .show-child-attr > .expand {
+	display: none;
+}
+.child-attr.show > .show-child-attr > .close {
+	display: block;
+}
+
+.part-heading {
+	padding: 10px 0;
+    padding-bottom: 0px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+
+.api-definition-heading, .rhs-heading {
+	margin-bottom: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid #EEEDE9;
+    padding: 6px 20px;
+    font-size: 13px;
+}
+
+.api-method {
+	border: 1px solid;
+    padding: 2px 11px;
+    border-radius: 2px;
+    color: white;
+    background: black;
+}
+
+.api-method.get {
+	background: #1fda9a;
+    
+}
+
+.api-method.post {
+	background: #ee4b3e;
+}
+
+.api-method.put {
+	background: #E9BC1B;
+}
+
+.api-url {
+	word-break: break-all;
+    white-space: initial;
+    line-height: 1.9;
+}
+
+.rhs-highlight {
+    margin-bottom: 50px;
+	padding: 0 20px;
+}
+
+.headers-description {
+	margin-bottom: 50px;
+}
+
+.hljs {
+	padding: 10px;
+    background: #f4f7f8;
+    border-radius: 2px;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.hljs-keyword {
+	font-weight: 700;
+}
+
+.hljs-built_in {
+	color: #0095dd;
+}
+
+.hljs-attr {
+	color: #4aba09;
+	font-weight: 600;
+}
+</style></html><body class="headers-available"><div class="custom-header"><div style='padding: 8px 20px;font-size: 22px;'>
+	<span style='font-weight: 700'>Polls </span>
+	<span style='font-weight: 300'>API</span>
+</div></div><div class="documentation"><div class="top-header"><div class="lang-header part-header"><span class="lan" lang="curl">curl</span><span class="lan" lang="node">Node</span><span class="lan" lang="python">Python</span><span class="lan" lang="java">Java</span><span class="lan" lang="ruby">Ruby</span><span class="lan selected" lang="php">php</span><span class="lan" lang="go">Go</span></div></div><div class="sidebar"><nav class="sidebar-nav"><div class="group-header"><a href="#top">Overview</a></div><div class="group-header"><a href="#group-polls"></a></div><ul><li class="resource-header"><a class="resource-nav-item" href="#resource-polls-api-root">Polls API Root</a><ul><li class="transition"><a class="child-nav-item" href="#transition-retrieve-the-entry-point-get"><span class="child-nav-text">Retrieve the Entry Point</span></a></li></ul></li></ul><div class="group-header"><a href="#group-question">Question</a></div><ul><li class="resource-header"><a class="resource-nav-item" href="#resource-question">Question</a><ul><li class="transition"><a class="child-nav-item" href="#object-question"><span class="child-nav-text">Question Object</span></a></li><li class="transition"><a class="child-nav-item" href="#transition-view-a-questions-detail-get"><span class="child-nav-text">View a Questions Detail</span></a></li></ul></li><li class="resource-header"><a class="resource-nav-item" href="#resource-choice">Choice</a><ul><li class="transition"><a class="child-nav-item" href="#transition-vote-on-a-choice-post"><span class="child-nav-text">Vote on a Choice</span></a></li></ul></li><li class="resource-header"><a class="resource-nav-item" href="#resource-questions-collection">Questions Collection</a><ul><li class="transition"><a class="child-nav-item" href="#transition-list-all-questions-get"><span class="child-nav-text">List All Questions</span></a></li><li class="transition"><a class="child-nav-item" href="#transition-create-a-new-question-post"><span class="child-nav-text">Create a New Question</span></a></li></ul></li></ul></nav></div><div class="container"><div class="doc-body col-12"><div class="top-element" id="top"></div><div class="row"><div class="col-6 lhs"><div class="group-heading top" id="group-polls">Polls</div><div class="description"><p>Polls is a simple API allowing consumers to view polls and vote in them. You can view this documentation over at <a href="http://docs.pollsapi.apiary.io">Apiary</a>.</p>
+</div></div></div><div class="row"><div class="col-6 lhs"><div class="group-heading way-point" id="group-polls"></div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-polls-api-root">Polls API Root</div><div class="description"><p>This resource does not have any attributes. Instead it offers the initial API affordances in the form of the links in the JSON body.</p>
+<p>It is recommend to follow the “url” link values, <a href="https://tools.ietf.org/html/rfc5988">Link</a> or Location headers where applicable to retrieve resources. Instead of constructing your own URLs, to keep your client decoupled from implementation details.</p>
+</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-retrieve-the-entry-point-get">Retrieve the Entry Point</div></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-meta">&lt;?php</span>
+
+$curl = curl_init();
+
+curl_setopt_array($curl, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">"http://polls.apiblueprint.org/"</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-keyword">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">""</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">30</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">"GET"</span>,
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+<span class="hljs-keyword">if</span> ($err) {
+  <span class="hljs-keyword">echo</span> <span class="hljs-string">"cURL Error #:"</span> . $err;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">echo</span> $response;
+}</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">200</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div></code></pre></div></div><div class="sample-response-body rhs-heading">Response Body</div><div class="sample-response-body-description rhs-highlight code"><pre class="hljs"><code>{
+    <span class="hljs-attr">"questions_url"</span>: <span class="hljs-string">"/questions"</span>
+}
+</code></pre></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="group-heading way-point" id="group-question">Question</div><div class="description"><p>Resources related to questions in the API.</p>
+</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-question">Question</div><div class="description"><p>A Question object has the following attributes:</p>
+</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="object-question">Question Object</div><div class="part-heading">Attributes</div><ul class="attrs"><li class="attr"><div class="left"><div><span class="key">question</span></div><div><span class="type">object</span></div><div></div></div><div class="right"></div><div class="child-attr"><div class="show-child-attr left"><span class="expand">Expand question attributes</span><span class="close">Close question attributes</span></div><ul class="attrs"><li class="attr"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span><span class="required">Required</span></div><div><span class="example">Example: 1</span></div></div><div class="right"><span class="description">ID of the Question in form of an integer</span></div></li><li class="attr"><div class="left"><div><span class="key">choice_id</span></div><div><span class="type">number</span><span class="required">Required</span></div><div><span class="example">Example: 1</span></div></div><div class="right"><span class="description">ID of the Choice in form of an integer</span></div></li></ul></div></li><li class="attr"><div class="left"><div><span class="key">published_at</span></div><div><span class="type">string</span></div><div></div></div><div class="right"><span class="description">An ISO8601 date when the question was published.</span></div></li><li class="attr"><div class="left"><div><span class="key">url</span></div><div><span class="type">string</span></div><div></div></div><div class="right"></div></li><li class="attr"><div class="left"><div><span class="key">choices</span></div><div><span class="type">string</span></div><div></div></div><div class="right"><span class="description">An array of Choice objects.</span></div></li></ul></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-view-a-questions-detail-get">View a Questions Detail</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/questions/<mark>{question_id}</mark></span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-meta">&lt;?php</span>
+
+$curl = curl_init();
+
+curl_setopt_array($curl, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">"http://polls.apiblueprint.org/questions/1"</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-keyword">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">""</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">30</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">"GET"</span>,
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+<span class="hljs-keyword">if</span> ($err) {
+  <span class="hljs-keyword">echo</span> <span class="hljs-string">"cURL Error #:"</span> . $err;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">echo</span> $response;
+}</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">200</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div></code></pre></div></div><div class="sample-response-body rhs-heading">Response Body</div><div class="sample-response-body-description rhs-highlight code"><pre class="hljs"><code>{
+    <span class="hljs-attr">"question"</span>: <span class="hljs-string">"Favourite programming language?"</span>,
+    <span class="hljs-attr">"published_at"</span>: <span class="hljs-string">"2014-11-11T08:40:51.620Z"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1"</span>,
+    <span class="hljs-attr">"choices"</span>: [
+        {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Swift"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/1"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">2048</span>
+        }, {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Python"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/2"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">1024</span>
+        }, {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Objective-C"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/3"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">512</span>
+        }, {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Ruby"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/4"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">256</span>
+        }
+    ]
+}
+</code></pre></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-choice">Choice</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-vote-on-a-choice-post">Vote on a Choice</div><div class="description"><p>This action allows you to vote on a question’s choice.</p>
+</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li><li class="param"><div class="left"><div><span class="key">choice_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method post">POST</span><span class="api-url"> http://polls.apiblueprint.org/questions/<mark>{question_id}</mark>/choices/<mark>{choice_id}</mark></span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-meta">&lt;?php</span>
+
+$curl = curl_init();
+
+curl_setopt_array($curl, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">"http://polls.apiblueprint.org/questions/1/choices/1"</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-keyword">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">""</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">30</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">"POST"</span>,
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+<span class="hljs-keyword">if</span> ($err) {
+  <span class="hljs-keyword">echo</span> <span class="hljs-string">"cURL Error #:"</span> . $err;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">echo</span> $response;
+}</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">201</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Location: </span><span class="value">/questions/1</span></div></code></pre></div></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-questions-collection">Questions Collection</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-list-all-questions-get">List All Questions</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">page</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/questions</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-meta">&lt;?php</span>
+
+$curl = curl_init();
+
+curl_setopt_array($curl, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">"http://polls.apiblueprint.org/questions?page={page}"</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-keyword">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">""</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">30</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">"GET"</span>,
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+<span class="hljs-keyword">if</span> ($err) {
+  <span class="hljs-keyword">echo</span> <span class="hljs-string">"cURL Error #:"</span> . $err;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">echo</span> $response;
+}</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">200</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div><div class="header-row"><span class="key hljs-attr">Link: </span><span class="value">&lt;/questions?page=2&gt;; rel=&quot;next&quot;</span></div></code></pre></div></div><div class="sample-response-body rhs-heading">Response Body</div><div class="sample-response-body-description rhs-highlight code"><pre class="hljs"><code>[
+    {
+        <span class="hljs-attr">"question"</span>: <span class="hljs-string">"Favourite programming language?"</span>,
+        <span class="hljs-attr">"published_at"</span>: <span class="hljs-string">"2014-11-11T08:40:51.620Z"</span>,
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1"</span>,
+        <span class="hljs-attr">"choices"</span>: [
+            {
+                <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Swift"</span>,
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/1"</span>,
+                <span class="hljs-attr">"votes"</span>: <span class="hljs-number">2048</span>
+            }, {
+                <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Python"</span>,
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/2"</span>,
+                <span class="hljs-attr">"votes"</span>: <span class="hljs-number">1024</span>
+            }, {
+                <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Objective-C"</span>,
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/3"</span>,
+                <span class="hljs-attr">"votes"</span>: <span class="hljs-number">512</span>
+            }, {
+                <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Ruby"</span>,
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/1/choices/4"</span>,
+                <span class="hljs-attr">"votes"</span>: <span class="hljs-number">256</span>
+            }
+        ]
+    }
+]
+</code></pre></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-create-a-new-question-post">Create a New Question</div><div class="description"><p>You may create your own question using this action. It takes a JSON object containing a question and a collection of answers in the form of choices.</p>
+<ul>
+<li>
+<p>question (string) - The question</p>
+</li>
+<li>
+<p>choices (array[string]) - A collection of choices.</p>
+</li>
+</ul>
+</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">page</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method post">POST</span><span class="api-url"> http://polls.apiblueprint.org/questions</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="headers"><div class="headers-heading rhs-heading">Request Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div></code></pre></div></div><div class="sample-request-body rhs-heading">Request Body</div><div class="sample-request-body-description rhs-highlight code"><pre class="hljs"><code>{
+    <span class="hljs-attr">"question"</span>: <span class="hljs-string">"Favourite programming language?"</span>,
+    <span class="hljs-attr">"choices"</span>: [
+        <span class="hljs-string">"Swift"</span>,
+        <span class="hljs-string">"Python"</span>,
+        <span class="hljs-string">"Objective-C"</span>,
+        <span class="hljs-string">"Ruby"</span>
+    ]
+}
+</code></pre></div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-meta">&lt;?php</span>
+
+$curl = curl_init();
+
+curl_setopt_array($curl, <span class="hljs-keyword">array</span>(
+  CURLOPT_URL =&gt; <span class="hljs-string">"http://polls.apiblueprint.org/questions?page={page}"</span>,
+  CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-keyword">true</span>,
+  CURLOPT_ENCODING =&gt; <span class="hljs-string">""</span>,
+  CURLOPT_MAXREDIRS =&gt; <span class="hljs-number">10</span>,
+  CURLOPT_TIMEOUT =&gt; <span class="hljs-number">30</span>,
+  CURLOPT_HTTP_VERSION =&gt; CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST =&gt; <span class="hljs-string">"POST"</span>,
+  CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">"content-type: application/json"</span>
+  ),
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+<span class="hljs-keyword">if</span> ($err) {
+  <span class="hljs-keyword">echo</span> <span class="hljs-string">"cURL Error #:"</span> . $err;
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">echo</span> $response;
+}</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">201</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div><div class="header-row"><span class="key hljs-attr">Location: </span><span class="value">/questions/2</span></div></code></pre></div></div><div class="sample-response-body rhs-heading">Response Body</div><div class="sample-response-body-description rhs-highlight code"><pre class="hljs"><code>{
+    <span class="hljs-attr">"question"</span>: <span class="hljs-string">"Favourite programming language?"</span>,
+    <span class="hljs-attr">"published_at"</span>: <span class="hljs-string">"2014-11-11T08:40:51.620Z"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/2"</span>,
+    <span class="hljs-attr">"choices"</span>: [
+        {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Swift"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/2/choices/1"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">0</span>
+        }, {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Python"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/2/choices/2"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">0</span>
+        }, {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Objective-C"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/2/choices/3"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">0</span>
+        }, {
+            <span class="hljs-attr">"choice"</span>: <span class="hljs-string">"Ruby"</span>,
+            <span class="hljs-attr">"url"</span>: <span class="hljs-string">"/questions/2/choices/4"</span>,
+            <span class="hljs-attr">"votes"</span>: <span class="hljs-number">0</span>
+        }
+    ]
+}
+</code></pre></div></div></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script><script></script><script>function triggerEvent(el, eventName) {
+    if (!el) return;
+    var evt;
+    try {
+        evt = new window.Event(eventName, {bubbles: true});
+    }
+    catch (e) {
+        evt = document.createEvent('Event');
+        evt.initEvent(eventName, true, false);
+    }
+    finally {
+        el.dispatchEvent(evt);
+    }
+};
+var docbody = document.querySelector('.doc-body');
+docbody.addEventListener('click', function(e) {
+	if (e.target.classList.contains('expand') || e.target.classList.contains('close')) {
+		var childAttr = e.target.parentNode.parentNode;
+		childAttr.classList.toggle('show');
+	}
+});
+var sidebar = document.querySelector('.sidebar');
+sidebar.addEventListener('click', function(e) {
+	if (e.target.classList.contains('resource-nav-item')) {
+		var selected = sidebar.querySelector('.resource-header.expand');
+		var resourceHeader = e.target.parentNode;
+		if (selected !== e.target.parentNode) {
+			selected && selected.classList.remove('expand');
+			resourceHeader.classList.add('expand');
+		}
+	} else if (e.target.classList.contains('child-nav-text')) {
+		var selected = sidebar.querySelector('.child-nav-item.selected');
+		if (selected !== e.target.parentNode) {
+			selected && selected.classList.remove('selected');
+			e.target.parentNode.classList.add('selected');
+		}
+	} else if (e.target && e.target.parentNode && e.target.parentNode.classList.contains('group-header')) {
+		var selected = sidebar.querySelector('.resource-header.expand');
+		selected && selected.classList.remove('expand');
+		selected = sidebar.querySelector('.child-nav-item.selected');
+		selected && selected.classList.remove('selected');
+	}
+});
+var langBar = document.querySelector('.top-header .lang-header');
+langBar.addEventListener('click', function(e) {
+	if (e.target.classList.contains('lan')) {
+		var selectedLang = langBar.querySelector('.selected');
+		selectedLang = selectedLang && selectedLang.getAttribute('lang')
+		var targetLang = e.target.getAttribute('lang');
+		if (window.location.pathname.indexOf('/' + selectedLang + '/') !== -1) {
+			window.location.pathname = window.location.pathname.replace('/' + selectedLang + '/', '/' + targetLang + '/');
+		} else if (window.location.search.indexOf(selectedLang) !== -1) {
+			window.location.search = window.location.search.replace(selectedLang, targetLang);
+		} else {
+			window.location = languageUrls[targetLang] + window.location.hash;
+		}
+	}
+})
+var waypoints = document.querySelectorAll('.way-point');
+function wayHandler() {
+	var id = '#' + this.element.id;
+	var navEl = document.querySelector('.sidebar a[href=\"' + id + '\"]');
+	var selected;
+
+	if (navEl.classList.contains('child-nav-item')) {
+		var resourceNav = navEl.parentNode.parentNode.parentNode;
+		selected = sidebar.querySelector('.child-nav-item.selected');
+		selected && (selected !== navEl) && selected.classList.remove('selected');
+		selected = sidebar.querySelector('.resource-header.expand');
+		selected && (selected !== resourceNav) && selected.classList.remove('expand');
+		resourceNav.classList.add('expand');
+		navEl.classList.add('selected');
+		window.location.hash = id;
+	} else if (navEl.classList.contains('resource-nav-item')) {
+		selected = sidebar.querySelector('.child-nav-item.selected');
+		selected && (selected !== navEl) && selected.classList.remove('selected');
+		navEl.classList.add('selected');
+		window.location.hash = id;
+	} else {
+		window.location.hash = '';
+		selected = sidebar.querySelector('.child-nav-item.selected');
+		selected && (selected !== navEl) && selected.classList.remove('selected');
+		selected = sidebar.querySelector('.resource-header.expand');
+		selected && (selected !== resourceNav) && selected.classList.remove('expand');
+	}
+}
+new Waypoint({
+	continuous: false,
+	context: document.querySelector('.container'),
+	element: document.querySelector('#top'),
+	handler: wayHandler
+});
+for(var i = 0;i < waypoints.length; i++) {
+	new Waypoint({
+		continuous: false,
+		context: document.querySelector('.container'),
+		element: waypoints[i],
+		handler: wayHandler
+	});
+}</script></div></body>
