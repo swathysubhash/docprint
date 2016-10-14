@@ -30,5 +30,5 @@
     "markdown-it-highlightjs": "2.0.0",
     "mkdirp": "0.5.1",
     "pug": "^2.0.0-beta4"
-  },
+  }
 }
