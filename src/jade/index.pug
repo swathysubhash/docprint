@@ -24,32 +24,32 @@ body(class=headerContent ? 'headers-available': '')
 			nav.sidebar-nav
 				if (intro && intro.description && intro.description.text)
 					.group-header
-						a(href='#top') Overview
+						a(href='#top', _href='#top') Overview
 					if intro.description.links && intro.description.links.length
 						ul
 							li.resource-header
-								a.resource-nav-item(href='#' + intro.id) #{capitalize(intro.title)}
+								a.resource-nav-item(href='#' + intro.id, _href='#' + intro.id) #{capitalize(intro.title)}
 							each link in intro.description.links
 								li.resource-header
-									a.resource-nav-item(href=link) #{capitalize(link.substring(1))}
+									a.resource-nav-item(href=link, _href=link) #{capitalize(link.substring(1))}
 
 				each group in output.content[0].content
 					if group.type === 'resourceGroup'
 						.group-header
-							a(href='#' + group.id) #{group.title}
+							a(href='#' + group.id, _href='#' + group.id) #{group.title}
 						ul
 							each resource in group.content
 								li.resource-header
-									a.resource-nav-item(href='#' + resource.id) #{resource.title}
+									a.resource-nav-item(href='#' + resource.id, _href='#' + resource.id) #{resource.title}
 									ul
 										each transition in resource.content
 											if (transition.type === 'transition')
 												li.transition
-													a.child-nav-item(href='#' + transition.id)
+													a.child-nav-item(href='#' + transition.id, _href='#' + transition.id)
 														span.child-nav-text #{transition.title}
 											else if (transition.type === 'dataStructure')
 												li.transition
-													a.child-nav-item(href="#" + transition.id)
+													a.child-nav-item(href="#" + transition.id, _href="#" + transition.id)
 														span.child-nav-text #{transition.title}
 		.container
 			.doc-body.col-12
@@ -222,7 +222,7 @@ body(class=headerContent ? 'headers-available': '')
 			var waypoints = document.querySelectorAll('.way-point');
 			function wayHandler() {
 				var id = '#' + this.element.id;
-				var navEl = document.querySelector('.sidebar a[href=\"' + id + '\"]');
+				var navEl = document.querySelector('.sidebar a[_href=\"' + id + '\"]');
 				var selected;
 
 				if (navEl.classList.contains('child-nav-item')) {
