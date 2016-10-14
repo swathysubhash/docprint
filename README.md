@@ -57,6 +57,23 @@ docprint({
 })
 ```
 
+# File inclusions
+Files can be included in to index file using this format. For more info see [hercule](https://github.com/jamesramsay/hercule/tree/master/examples/api-blueprint)
+
+```
+:[name](path)
+```
+
+For Eg:
+
+```
+:[Overview](blueprint/overview.md)
+:[Search](blueprint/search.apib)
+:[Products](blueprint/products.json)
+```
+
+
+
 # Language selection
 During language selection in the documentation, it will replace the 'language keyword' from url with the new language selected. You should mount the static files in the application in a similar way so that changing url should work for different languages.
 

@@ -221,32 +221,39 @@ body(class=headerContent ? 'headers-available': '')
 			})
 			var waypoints = document.querySelectorAll('.way-point');
 			function wayHandler() {
+				if (this.element.classList.contains('header-anchor')) {
+					this.element = this.element.parentNode;
+				}
 				var id = '#' + this.element.id;
 				var navEl = document.querySelector('.sidebar a[_href=\"' + id + '\"]');
 				var selected;
-
-				if (navEl.classList.contains('child-nav-item')) {
-					var resourceNav = navEl.parentNode.parentNode.parentNode;
-					selected = sidebar.querySelector('.child-nav-item.selected');
-					selected && (selected !== navEl) && selected.classList.remove('selected');
-					selected = sidebar.querySelector('.resource-header.expand');
-					selected && (selected !== resourceNav) && selected.classList.remove('expand');
-					resourceNav.classList.add('expand');
-					navEl.classList.add('selected');
-					window.location.hash = id;
-				} else if (navEl.classList.contains('resource-nav-item')) {
-					selected = sidebar.querySelector('.child-nav-item.selected');
-					selected && (selected !== navEl) && selected.classList.remove('selected');
-					navEl.classList.add('selected');
-					window.location.hash = id;
-				} else {
-					window.location.hash = '';
-					selected = sidebar.querySelector('.child-nav-item.selected');
-					selected && (selected !== navEl) && selected.classList.remove('selected');
-					selected = sidebar.querySelector('.resource-header.expand');
-					selected && (selected !== resourceNav) && selected.classList.remove('expand');
+				if (navEl) {
+					if (navEl.classList.contains('child-nav-item')) {
+						var resourceNav = navEl.parentNode.parentNode.parentNode;
+						selected = sidebar.querySelector('.child-nav-item.selected');
+						selected && (selected !== navEl) && selected.classList.remove('selected');
+						selected = sidebar.querySelector('.resource-header.expand');
+						selected && (selected !== resourceNav) && selected.classList.remove('expand');
+						resourceNav.classList.add('expand');
+						navEl.classList.add('selected');
+						window.location.hash = id;
+					} else if (navEl.classList.contains('resource-nav-item')) {
+						selected = sidebar.querySelector('.child-nav-item.selected');
+						selected && (selected !== navEl) && selected.classList.remove('selected');
+						selected = sidebar.querySelector('.resource-header.expand');
+						selected && (selected !== resourceNav) && selected.classList.remove('expand');
+						navEl.parentNode && navEl.parentNode.classList.add('expand');
+						window.location.hash = id;
+					} else {
+						window.location.hash = '';
+						selected = sidebar.querySelector('.child-nav-item.selected');
+						selected && (selected !== navEl) && selected.classList.remove('selected');
+						selected = sidebar.querySelector('.resource-header.expand');
+						selected && (selected !== resourceNav) && selected.classList.remove('expand');
+					}
 				}
 			}
+			var hAnchors = document.querySelectorAll('.header-anchor');
 			new Waypoint({
 				continuous: false,
 				context: document.querySelector('.container'),
@@ -258,6 +265,14 @@ body(class=headerContent ? 'headers-available': '')
 					continuous: false,
 					context: document.querySelector('.container'),
 					element: waypoints[i],
+					handler: wayHandler
+				});
+			}
+			for(var i = 0;i < hAnchors.length; i++) {
+				new Waypoint({
+					continuous: false,
+					context: document.querySelector('.container'),
+					element: hAnchors[i],
 					handler: wayHandler
 				});
 			}

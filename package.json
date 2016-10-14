@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "docprint": "index.js"
+    "docprint": "./bin/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "cheerio": "0.22.0",
     "commander": "2.9.0",
     "drafter": "1.1.0",
+    "hercule": "^3.0.5",
     "highlight.js": "9.7.0",
     "httpsnippet": "1.16.5",
     "markdown-it": "8.0.0",

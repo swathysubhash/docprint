@@ -1,13 +1,14 @@
 require('./patch');
 
 var drafter = require('drafter');
+var hercule = require('hercule');
 var fs = require('fs');
 var pug = require('pug');
 var parse = require('./parse');
 var mkdir = require('mkdirp');
 var util = require('./util');
 var host = require('./host');
-
+var path = require('path');
 
 var slugify = util.slugify;
 var at = util.at;
@@ -31,24 +32,30 @@ module.exports = function(options) {
 	}
 
 	try {
-	  	var result = drafter.parseSync(fs.readFileSync(filePath).toString(), {
+		var relativePath = path.resolve(filePath);
+		relativePath = relativePath.substring(0, relativePath.lastIndexOf('/'));
+	  	var result = drafter.parseSync(
+	  		hercule.transcludeStringSync(fs.readFileSync(filePath).toString(), {
+	  			relativePath: relativePath
+	  		}), {
 	  		requireBlueprintName: true
 	  	});
 	  	setHost(result);
 	  	var output = {};
 	  	parse(result, output);
-	  
+	  	
+	  	destFolder = path.resolve(destFolder);
 		var dataStructures = at(output, 'content.0.content');
 		dataStructures = dataStructures && dataStructures.find(function(c){ return c.type === 'dataStructures'; } ) || [];
 		dataStructures = dataStructures && dataStructures.content;
 
-		var css = fs.readFileSync(process.cwd() + '/src/css/style.css').toString();
+		var css = fs.readFileSync(__dirname + '/css/style.css').toString();
 		var langs = ['curl', 'node', 'python', 'java', 'ruby', 'php', 'go'];
 
 		langs.forEach(function(l) {
 			mkdir.sync(destFolder + '/' + l);
 			require('fs').writeFileSync(destFolder + '/' + l +  '/index.html', 
-				pug.renderFile(process.cwd() + '/src/jade/index.pug', { 
+				pug.renderFile(__dirname + '/jade/index.pug', { 
 					output : output, 
 					css: css, 
 					headerContent: headerhtml,
