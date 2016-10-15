@@ -1,7 +1,7 @@
-build/docs/curl/* linguist-documentation
-build/docs/node/* linguist-documentation
-build/docs/python/* linguist-documentation
-build/docs/java/* linguist-documentation
-build/docs/php/* linguist-documentation
-build/docs/ruby/* linguist-documentation
-build/docs/go/* linguist-documentation
+build/docs/curl/index.html linguist-documentation
+build/docs/node/index.html linguist-documentation
+build/docs/python/index.html linguist-documentation
+build/docs/java/index.html linguist-documentation
+build/docs/php/index.html linguist-documentation
+build/docs/ruby/index.html linguist-documentation
+build/docs/go/index.html linguist-documentation
