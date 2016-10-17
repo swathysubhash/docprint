@@ -158,8 +158,6 @@ body(class=headerContent ? 'headers-available': '')
 											.part-heading Attributes
 											+renderAttributes(transition.content[0], dataStructures)
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js')
-		script
-			| !{languageUrls}
 		script.
 			function triggerEvent(el, eventName) {
 			    if (!el) return;
@@ -210,12 +208,11 @@ body(class=headerContent ? 'headers-available': '')
 					var selectedLang = langBar.querySelector('.selected');
 					selectedLang = selectedLang && selectedLang.getAttribute('lang')
 					var targetLang = e.target.getAttribute('lang');
-					if (window.location.pathname.indexOf('/' + selectedLang + '/') !== -1) {
-						window.location.pathname = window.location.pathname.replace('/' + selectedLang + '/', '/' + targetLang + '/');
+					if (window.location.pathname.indexOf('/' + selectedLang) !== -1) {
+						window.location.pathname = window.location.pathname.replace('/' + selectedLang, '/' + targetLang);
 					} else if (window.location.search.indexOf(selectedLang) !== -1) {
 						window.location.search = window.location.search.replace(selectedLang, targetLang);
 					} else {
-						window.location = languageUrls[targetLang] + window.location.hash;
 					}
 				}
 			})
