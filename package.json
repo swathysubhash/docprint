@@ -1,6 +1,6 @@
 {
   "name": "docprint",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generates documentation from api-blueprint files",
   "main": "index.js",
   "scripts": {
