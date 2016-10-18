@@ -28,7 +28,7 @@ function sanitize(arr) {
 function capitalize(string) {
 	return string && string.charAt(0).toUpperCase() + string.slice(1);
 }
-
+	
 function at(o, path, def) {
     var pointer = o,
         failed = false;

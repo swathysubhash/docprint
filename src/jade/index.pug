@@ -217,11 +217,19 @@ body(class=headerContent ? 'headers-available': '')
 				}
 			})
 			var waypoints = document.querySelectorAll('.way-point');
-			function wayHandler() {
+			var wayHandler = debounce(function() {
+
 				if (this.element.classList.contains('header-anchor')) {
 					this.element = this.element.parentNode;
 				}
+				var tid = this.element.id;
 				var id = '#' + this.element.id;
+
+
+				if(id === window.location.hash) {
+					return;
+				}
+
 				var navEl = document.querySelector('.sidebar a[_href=\"' + id + '\"]');
 				var selected;
 				if (navEl) {
@@ -233,23 +241,31 @@ body(class=headerContent ? 'headers-available': '')
 						selected && (selected !== resourceNav) && selected.classList.remove('expand');
 						resourceNav.classList.add('expand');
 						navEl.classList.add('selected');
+
+
+						this.element.setAttribute('id', '');
 						window.location.hash = id;
+						this.element.setAttribute('id', tid);
 					} else if (navEl.classList.contains('resource-nav-item')) {
 						selected = sidebar.querySelector('.child-nav-item.selected');
 						selected && (selected !== navEl) && selected.classList.remove('selected');
 						selected = sidebar.querySelector('.resource-header.expand');
 						selected && (selected !== resourceNav) && selected.classList.remove('expand');
 						navEl.parentNode && navEl.parentNode.classList.add('expand');
+						this.element.setAttribute('id', '');
 						window.location.hash = id;
+						this.element.setAttribute('id', tid);
 					} else {
+						this.element.setAttribute('id', '');
 						window.location.hash = '';
+						this.element.setAttribute('id', tid);
 						selected = sidebar.querySelector('.child-nav-item.selected');
 						selected && (selected !== navEl) && selected.classList.remove('selected');
 						selected = sidebar.querySelector('.resource-header.expand');
 						selected && (selected !== resourceNav) && selected.classList.remove('expand');
 					}
 				}
-			}
+			}, 100)
 			var hAnchors = document.querySelectorAll('.header-anchor');
 			new Waypoint({
 				continuous: false,
@@ -273,3 +289,17 @@ body(class=headerContent ? 'headers-available': '')
 					handler: wayHandler
 				});
 			}
+			function debounce(func, wait, immediate) {
+				var timeout;
+				return function() {
+					var context = this, args = arguments;
+					var later = function() {
+						timeout = null;
+						if (!immediate) func.apply(context, args);
+					};
+					var callNow = immediate && !timeout;
+					clearTimeout(timeout);
+					timeout = setTimeout(later, wait);
+					if (callNow) func.apply(context, args);
+				};
+			};
