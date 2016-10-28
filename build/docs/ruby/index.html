@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|PT+Sans:400,700|Source+Code+Pro"><style type="text/css">* {
+<!DOCTYPE html><html><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro"><style type="text/css">* {
 	outline: none;
 }
 
@@ -14,7 +14,7 @@ ul {
 
 h2 {
 	font-size: 24px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 10px 0px;
 }
 
@@ -30,12 +30,13 @@ body {
     padding: 0;
     font-weight: normal;
     font-size: 14px;
+    color: #272b2d;
 }
 
 mark {
-	background: transparent;
+    background: transparent;
     border-radius: 3px;
-    font-weight: 600;
+    color: yellow;
 }
 
 .top-element {
@@ -83,29 +84,31 @@ mark {
 
 .lang-header {
 	padding: 10px 15px;
-    margin-left: 49%;
-    width: 50%;
-    background: white;
+    position: absolute;
+    left: 50%;
+    right: 0;
+	box-shadow: 0 0 1px 0;
+	background: #2D3134;
 }
 
 .lang-header .lan{
-	padding: 2px 10px;
+	padding: 3px 12px;
     margin-right: 8px;
     border-radius: 3px;
     cursor: pointer;
-    background: white;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #272b2d;
+    color: #dde4e8;
 }
 
 .lan.selected {
-	background: #3b4151;
-    color: white;
-    border: none;
+	background: #272b2d;
+    color: #45f945;
+    font-weight: 600;
 }
 .sidebar {
 	font-family: 'Open Sans', sans-serif;
 	bottom: 0;
-	font-weight: 300;
+	font-weight: 400;
     left: 0;
     position: absolute;
     top: 0;
@@ -113,6 +116,7 @@ mark {
     width: 230px;
 	padding: 20px;
 	padding-top: 45px;
+	background: #fafafa;
 }
  
 .sidebar .group-header {
@@ -162,8 +166,8 @@ mark {
 
 .doc-body {
 	box-sizing: border-box;
-    background-image: -webkit-linear-gradient(-90deg, #FAFAFA 50%, #ffffff 50%);
-    background-image: linear-gradient(-90deg, #FAFAFA 50%, #ffffff 50%); 
+    background-image: -webkit-linear-gradient(-90deg, #2D3134 50%, #ffffff 50%);
+    background-image: linear-gradient(-90deg, #2D3134 50%, #ffffff 50%);
 }
 
 .header-anchor {
@@ -199,33 +203,40 @@ mark {
 
 .rhs {
     padding-top: 40px;
+    color: #dde4e8;
 }
 
 code, .code {
 	font-family: Source Code Pro,Menlo,monospace;
 	font-size: 13px;
-	white-space: pre;
 }
 
 
 .doc-body .group-heading {
 	font-size: 24px;
-	margin-bottom: 40px;
-	margin-top: 40px;
-	font-weight: 300;
+    margin-top: 40px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
 }
 
 .doc-body .resource-heading {
-	font-size: 24px;
-	font-weight: 300;
 	padding: 10px 0px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
 }
 
 .doc-body .transition-heading {
-	font-size: 18px;
-	color: #292e31;
-	padding: 10px 0px;
-	font-weight: 600;
+    color: #292e31;
+    padding: 10px 0px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px
+}
+
+ul.attrs, ul.params {
+	border-top: 1px solid #e1e8ed;
 }
 
 .params .left, .attrs .left, .params .right, .attrs .right {
@@ -238,6 +249,10 @@ code, .code {
 	text-align: right;
     padding-right: 20px;
     box-sizing: border-box;
+    font-size: 13px;
+    line-height: 21px;
+    word-break: break-all;
+    white-space: normal;
 }
 
 .params .right, .attrs .right {
@@ -246,7 +261,9 @@ code, .code {
 }
 
 li.param, li.attr {
-	padding: 5px;
+	padding: 17px 0;
+    border-bottom: 1px solid #f0f4f7;
+    line-height: 24px;
 }
 
 li.param:last-child, li.attr:last-child {
@@ -274,13 +291,19 @@ li.param:last-child, li.attr:last-child {
 	font-size: 12px;
 }
 
+.left .example {
+	font-size: 11px;
+}
+
 .left .required, .left .optional {
 	color: #e66e33;
 	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 10px;
+    font-weight: 600;
 }
 .show-child-attr {
 	color: #0095dd;
+	padding: 6px 0;
 }
 
 .child-attr {
@@ -315,42 +338,38 @@ li.param:last-child, li.attr:last-child {
 }
 
 .part-heading {
-	padding: 10px 0;
-    padding-bottom: 0px;
-    text-transform: uppercase;
+	color: #939da3;
     font-size: 12px;
     font-weight: 600;
-    border-bottom: 1px solid #f0f0f0;
+    line-height: 18px;
+    text-transform: uppercase;
+    margin: 15px 0;
 }
 
 
 .api-definition-heading, .rhs-heading {
 	margin-bottom: 15px;
     font-weight: 600;
-    border-bottom: 1px solid #EEEDE9;
     padding: 6px 20px;
     font-size: 13px;
 }
 
 .api-method {
-	border: 1px solid;
     padding: 2px 11px;
     border-radius: 2px;
     color: white;
-    background: black;
 }
 
 .api-method.get {
-	background: #1fda9a;
-    
+	color: #1fda9a;
 }
 
 .api-method.post {
-	background: #ee4b3e;
+	color: #ee4b3e;
 }
 
 .api-method.put {
-	background: #E9BC1B;
+	color: #E9BC1B;
 }
 
 .api-url {
@@ -360,8 +379,13 @@ li.param:last-child, li.attr:last-child {
 }
 
 .rhs-highlight {
-    margin-bottom: 50px;
-	padding: 0 20px;
+    padding: 0 20px;
+    margin: 20px;
+    padding: 20px 20px;
+    background: #272b2d;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 70px;
 }
 
 .headers-description {
@@ -369,15 +393,13 @@ li.param:last-child, li.attr:last-child {
 }
 
 .hljs {
-	padding: 10px;
-    background: #f4f7f8;
     border-radius: 2px;
     margin: 0;
     white-space: pre-wrap;
 }
 
 .hljs-keyword {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .hljs-built_in {
@@ -386,7 +408,6 @@ li.param:last-child, li.attr:last-child {
 
 .hljs-attr {
 	color: #4aba09;
-	font-weight: 600;
 }
 </style></html><body class="headers-available"><div class="custom-header"><div style='padding: 8px 20px;font-size: 22px;'>
 	<span style='font-weight: 700'>Polls </span>
@@ -409,7 +430,7 @@ puts response.read_body</code></pre></div></div><div class="sample-response"><di
 }
 </code></pre></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="group-heading way-point" id="group-question">Question</div><div class="description"><p>Resources related to questions in the API.</p>
 </div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-question">Question</div><div class="description"><p>A Question object has the following attributes:</p>
-</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="object-question">Question Object</div><div class="part-heading">Attributes</div><ul class="attrs"><li class="attr"><div class="left"><div><span class="key">question</span></div><div><span class="type">object</span></div><div></div></div><div class="right"></div><div class="child-attr"><div class="show-child-attr left"><span class="expand">Expand question attributes</span><span class="close">Close question attributes</span></div><ul class="attrs"><li class="attr"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span><span class="required">Required</span></div><div><span class="example">Example: 1</span></div></div><div class="right"><span class="description">ID of the Question in form of an integer</span></div></li><li class="attr"><div class="left"><div><span class="key">choice_id</span></div><div><span class="type">number</span><span class="required">Required</span></div><div><span class="example">Example: 1</span></div></div><div class="right"><span class="description">ID of the Choice in form of an integer</span></div></li></ul></div></li><li class="attr"><div class="left"><div><span class="key">published_at</span></div><div><span class="type">string</span></div><div></div></div><div class="right"><span class="description">An ISO8601 date when the question was published.</span></div></li><li class="attr"><div class="left"><div><span class="key">url</span></div><div><span class="type">string</span></div><div></div></div><div class="right"></div></li><li class="attr"><div class="left"><div><span class="key">choices</span></div><div><span class="type">string</span></div><div></div></div><div class="right"><span class="description">An array of Choice objects.</span></div></li></ul></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-view-a-questions-detail-get">View a Questions Detail</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/questions/<mark>{question_id}</mark></span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
+</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="object-question">Question Object</div><h5 class="part-heading">Attributes</h5><ul class="attrs"><li class="attr"><div class="left"><div><span class="key">question</span></div><div><span class="type">object</span></div><div></div></div><div class="right"></div><div class="child-attr"><div class="show-child-attr left"><span class="expand">Expand attributes</span><span class="close">Close attributes</span></div><ul class="attrs"><li class="attr"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span><span class="required">Required</span></div><div><span class="example">Example: 1</span></div></div><div class="right"><span class="description">ID of the Question in form of an integer</span></div></li><li class="attr"><div class="left"><div><span class="key">choice_id</span></div><div><span class="type">number</span><span class="required">Required</span></div><div><span class="example">Example: 1</span></div></div><div class="right"><span class="description">ID of the Choice in form of an integer</span></div></li></ul></div></li><li class="attr"><div class="left"><div><span class="key">published_at</span></div><div><span class="type">string</span></div><div></div></div><div class="right"><span class="description">An ISO8601 date when the question was published.</span></div></li><li class="attr"><div class="left"><div><span class="key">url</span></div><div><span class="type">string</span></div><div></div></div><div class="right"></div></li><li class="attr"><div class="left"><div><span class="key">choices</span></div><div><span class="type">string</span></div><div></div></div><div class="right"><span class="description">An array of Choice objects.</span></div></li></ul></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-view-a-questions-detail-get">View a Questions Detail</div><h5 class="part-heading">Url Parameters</h5><ul class="params"><li class="param"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/questions/<mark>{question_id}</mark></span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
 url = URI(<span class="hljs-string">"http://polls.apiblueprint.org/questions/1"</span>)
@@ -444,7 +465,7 @@ puts response.read_body</code></pre></div></div><div class="sample-response"><di
     ]
 }
 </code></pre></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-choice">Choice</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-vote-on-a-choice-post">Vote on a Choice</div><div class="description"><p>This action allows you to vote on a question’s choice.</p>
-</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li><li class="param"><div class="left"><div><span class="key">choice_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method post">POST</span><span class="api-url"> http://polls.apiblueprint.org/questions/<mark>{question_id}</mark>/choices/<mark>{choice_id}</mark></span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
+</div><h5 class="part-heading">Url Parameters</h5><ul class="params"><li class="param"><div class="left"><div><span class="key">question_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li><li class="param"><div class="left"><div><span class="key">choice_id</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method post">POST</span><span class="api-url"> http://polls.apiblueprint.org/questions/<mark>{question_id}</mark>/choices/<mark>{choice_id}</mark></span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
 url = URI(<span class="hljs-string">"http://polls.apiblueprint.org/questions/1/choices/1"</span>)
@@ -454,7 +475,7 @@ http = Net::HTTP.<span class="hljs-keyword">new</span>(url.host, url.port)
 request = Net::HTTP::Post.<span class="hljs-keyword">new</span>(url)
 
 response = http.request(request)
-puts response.read_body</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">201</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Location: </span><span class="value">/questions/1</span></div></code></pre></div></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-questions-collection">Questions Collection</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-list-all-questions-get">List All Questions</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">page</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/questions</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
+puts response.read_body</code></pre></div></div><div class="sample-response"><div class="sample-response-heading rhs-heading"> <span>Response </span><span class="status-code">201</span></div><div class="headers"><div class="headers-heading rhs-heading">Response Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Location: </span><span class="value">/questions/1</span></div></code></pre></div></div></div></div></div><div class="row"><div class="col-6 lhs"><div class="resource-heading way-point" id="resource-questions-collection">Questions Collection</div></div><div class="col-6 rhs"></div></div><div class="row"><div class="col-6 lhs"><div class="transition-heading way-point" id="transition-list-all-questions-get">List All Questions</div><h5 class="part-heading">Url Parameters</h5><ul class="params"><li class="param"><div class="left"><div><span class="key">page</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method get">GET</span><span class="api-url"> http://polls.apiblueprint.org/questions</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="sample-request"><div class="sample-request-heading rhs-heading">Example Request</div><div class="sample-request-description rhs-highlight code"> <pre class="hljs"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'uri'</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'net/http'</span>
 
 url = URI(<span class="hljs-string">"http://polls.apiblueprint.org/questions?page={page}"</span>)
@@ -499,7 +520,7 @@ puts response.read_body</code></pre></div></div><div class="sample-response"><di
 <p>choices (array[string]) - A collection of choices.</p>
 </li>
 </ul>
-</div><div class="part-heading">Url Parameters</div><ul class="params"><li class="param"><div class="left"><div><span class="key">page</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method post">POST</span><span class="api-url"> http://polls.apiblueprint.org/questions</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="headers"><div class="headers-heading rhs-heading">Request Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div></code></pre></div></div><div class="sample-request-body rhs-heading">Request Body</div><div class="sample-request-body-description rhs-highlight code"><pre class="hljs"><code>{
+</div><h5 class="part-heading">Url Parameters</h5><ul class="params"><li class="param"><div class="left"><div><span class="key">page</span></div><div><span class="type">number</span></div><div><span class="example">Example: 1</span></div></div><div class="right"></div></li></ul></div><div class="col-6 rhs"><div class="api-definition"><div class="api-definition-heading rhs-heading">Definition</div><div class="api-definition-description rhs-highlight code"><span class="api-method post">POST</span><span class="api-url"> http://polls.apiblueprint.org/questions</span></div></div><div class="sample-request-heading rhs-heading">Request</div><div class="headers"><div class="headers-heading rhs-heading">Request Headers</div><div class="headers-description code rhs-highlight"><pre class="hljs"><code><div class="header-row"><span class="key hljs-attr">Content-Type: </span><span class="value">application/json</span></div></code></pre></div></div><div class="sample-request-body rhs-heading">Request Body</div><div class="sample-request-body-description rhs-highlight code"><pre class="hljs"><code>{
     <span class="hljs-attr">"question"</span>: <span class="hljs-string">"Favourite programming language?"</span>,
     <span class="hljs-attr">"choices"</span>: [
         <span class="hljs-string">"Swift"</span>,
@@ -543,7 +564,7 @@ puts response.read_body</code></pre></div></div><div class="sample-response"><di
         }
     ]
 }
-</code></pre></div></div></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script><script></script><script>function triggerEvent(el, eventName) {
+</code></pre></div></div></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script><script>function triggerEvent(el, eventName) {
     if (!el) return;
     var evt;
     try {
@@ -592,43 +613,55 @@ langBar.addEventListener('click', function(e) {
 		var selectedLang = langBar.querySelector('.selected');
 		selectedLang = selectedLang && selectedLang.getAttribute('lang')
 		var targetLang = e.target.getAttribute('lang');
-		if (window.location.pathname.indexOf('/' + selectedLang + '/') !== -1) {
-			window.location.pathname = window.location.pathname.replace('/' + selectedLang + '/', '/' + targetLang + '/');
+		if (window.location.pathname.indexOf('/' + selectedLang) !== -1) {
+			window.location.pathname = window.location.pathname.replace('/' + selectedLang, '/' + targetLang);
 		} else if (window.location.search.indexOf(selectedLang) !== -1) {
 			window.location.search = window.location.search.replace(selectedLang, targetLang);
 		} else {
-			window.location = languageUrls[targetLang] + window.location.hash;
 		}
 	}
 })
 var waypoints = document.querySelectorAll('.way-point');
-function wayHandler() {
+var wayHandler = debounce(function() {
+
+	if (this.element.classList.contains('header-anchor')) {
+		this.element = this.element.parentNode;
+	}
+
+	var tid = this.element.id;
 	var id = '#' + this.element.id;
+
+
+	if(id === window.location.hash) {
+		return;
+	}
+
 	var navEl = document.querySelector('.sidebar a[_href=\"' + id + '\"]');
 	var selected;
-
-	if (navEl.classList.contains('child-nav-item')) {
-		var resourceNav = navEl.parentNode.parentNode.parentNode;
-		selected = sidebar.querySelector('.child-nav-item.selected');
-		selected && (selected !== navEl) && selected.classList.remove('selected');
-		selected = sidebar.querySelector('.resource-header.expand');
-		selected && (selected !== resourceNav) && selected.classList.remove('expand');
-		resourceNav.classList.add('expand');
-		navEl.classList.add('selected');
-		window.location.hash = id;
-	} else if (navEl.classList.contains('resource-nav-item')) {
-		selected = sidebar.querySelector('.child-nav-item.selected');
-		selected && (selected !== navEl) && selected.classList.remove('selected');
-		navEl.classList.add('selected');
-		window.location.hash = id;
-	} else {
-		window.location.hash = '';
-		selected = sidebar.querySelector('.child-nav-item.selected');
-		selected && (selected !== navEl) && selected.classList.remove('selected');
-		selected = sidebar.querySelector('.resource-header.expand');
-		selected && (selected !== resourceNav) && selected.classList.remove('expand');
+	if (navEl) {
+		if (navEl.classList.contains('child-nav-item')) {
+			var resourceNav = navEl.parentNode.parentNode.parentNode;
+			selected = sidebar.querySelector('.child-nav-item.selected');
+			selected && (selected !== navEl) && selected.classList.remove('selected');
+			selected = sidebar.querySelector('.resource-header.expand');
+			selected && (selected !== resourceNav) && selected.classList.remove('expand');
+			resourceNav.classList.add('expand');
+			navEl.classList.add('selected');
+		} else if (navEl.classList.contains('resource-nav-item')) {
+			selected = sidebar.querySelector('.child-nav-item.selected');
+			selected && (selected !== navEl) && selected.classList.remove('selected');
+			selected = sidebar.querySelector('.resource-header.expand');
+			selected && (selected !== resourceNav) && selected.classList.remove('expand');
+			navEl.parentNode && navEl.parentNode.classList.add('expand');
+		} else {
+			selected = sidebar.querySelector('.child-nav-item.selected');
+			selected && (selected !== navEl) && selected.classList.remove('selected');
+			selected = sidebar.querySelector('.resource-header.expand');
+			selected && (selected !== resourceNav) && selected.classList.remove('expand');
+		}
 	}
-}
+}, 0)
+var hAnchors = document.querySelectorAll('.header-anchor');
 new Waypoint({
 	continuous: false,
 	context: document.querySelector('.container'),
@@ -642,4 +675,26 @@ for(var i = 0;i < waypoints.length; i++) {
 		element: waypoints[i],
 		handler: wayHandler
 	});
-}</script></div></body>
+}
+for(var i = 0;i < hAnchors.length; i++) {
+	new Waypoint({
+		continuous: false,
+		context: document.querySelector('.container'),
+		element: hAnchors[i],
+		handler: wayHandler
+	});
+}
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};</script></div></body>
