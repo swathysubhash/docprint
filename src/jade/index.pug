@@ -23,8 +23,8 @@ body(class=headerContent ? 'headers-available': '')
 		.sidebar
 			nav.sidebar-nav
 				if (intro && intro.description && intro.description.text)
-					.group-header
-						a(href='#top', _href='#top') Overview
+					//.group-header
+						//a(href='#top', _href='#top') Overview
 					if intro.description.links && intro.description.links.length
 						ul
 							li.resource-header
@@ -53,7 +53,6 @@ body(class=headerContent ? 'headers-available': '')
 														span.child-nav-text #{transition.title}
 		.container
 			.doc-body.col-12
-				.top-element(id='top')
 				- var intro = output.content && output.content[0]
 				.row
 					.col-6.lhs
@@ -217,21 +216,7 @@ body(class=headerContent ? 'headers-available': '')
 				}
 			})
 			var waypoints = document.querySelectorAll('.way-point');
-			var wayHandler = debounce(function() {
-
-				if (this.element.classList.contains('header-anchor')) {
-					this.element = this.element.parentNode;
-				}
-
-				var tid = this.element.id;
-				var id = '#' + this.element.id;
-
-
-				if(id === window.location.hash) {
-					return;
-				}
-
-				var navEl = document.querySelector('.sidebar a[_href=\"' + id + '\"]');
+			function selectSection(navEl) {
 				var selected;
 				if (navEl) {
 					if (navEl.classList.contains('child-nav-item')) {
@@ -255,14 +240,21 @@ body(class=headerContent ? 'headers-available': '')
 						selected && (selected !== resourceNav) && selected.classList.remove('expand');
 					}
 				}
-			}, 0)
+			}
+			var wayHandler = debounce(function() {
+
+				if (this.element.classList.contains('header-anchor')) {
+					this.element = this.element.parentNode;
+				}
+
+				var tid = this.element.id;
+				var id = '#' + this.element.id;
+
+				var navEl = document.querySelector('.sidebar a[_href=\"' + id + '\"]');
+				selectSection(navEl)
+			}, 0, true)
 			var hAnchors = document.querySelectorAll('.header-anchor');
-			new Waypoint({
-				continuous: false,
-				context: document.querySelector('.container'),
-				element: document.querySelector('#top'),
-				handler: wayHandler
-			});
+			var topElement = document.querySelector('.top')
 			for(var i = 0;i < waypoints.length; i++) {
 				new Waypoint({
 					continuous: false,
@@ -276,9 +268,17 @@ body(class=headerContent ? 'headers-available': '')
 					continuous: false,
 					context: document.querySelector('.container'),
 					element: hAnchors[i],
-					handler: wayHandler
+					handler: wayHandler,
+					offset: 20
 				});
 			}
+			new Waypoint({
+				continuous: false,
+				context: document.querySelector('.container'),
+				element: topElement,
+				handler: wayHandler,
+				offset: -10
+			});
 			function debounce(func, wait, immediate) {
 				var timeout;
 				return function() {
@@ -293,3 +293,12 @@ body(class=headerContent ? 'headers-available': '')
 					if (callNow) func.apply(context, args);
 				};
 			};
+			var h = window.location.hash
+			if (h) {
+				var navEl = document.querySelector('.sidebar a[_href=\"' + h + '\"]');
+				var selected;
+				selectSection(navEl)
+			} else {
+				var navEl = document.querySelector('.sidebar a');
+				selectSection(navEl)
+			}
