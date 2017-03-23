@@ -125,8 +125,10 @@ module.exports = function parse(result, current, parent) {
 			current.type = 'dataStructure';
 			current.content = result.content;
 			var trId = capitalize(current.content[0] && current.content[0].meta && current.content[0].meta.id)
-			current.id = 'object-' + slugify(trId);
-			current.title = trId + ' Object';
+            if (trId) {
+			    current.id = 'object-' + slugify(trId);
+			    current.title = trId + ' Object';
+            }
 			break;
 		case 'httpTransaction':
 			var meta = getMeta(result.meta);

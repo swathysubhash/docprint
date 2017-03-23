@@ -73,9 +73,12 @@ module.exports = function(options) {
 
 function setHost(result) {
 	var metas = at(result, 'content.0.attributes.meta');
-	var hostMeta = metas.find(function(m) {
-		return at(m, 'content.key.content') === 'HOST';
-	});stripSlash
-	host.set(stripSlash(at(hostMeta, 'content.value.content')) || 'http://{host}');
+	if (metas && metas.find) {
+		var hostMeta = metas.find(function(m) {
+			return at(m, 'content.key.content') === 'HOST';
+		});
+        
+		hostMeta && host.set(stripSlash(at(hostMeta, 'content.value.content')) || 'http://{host}');
+	}
 }
 
