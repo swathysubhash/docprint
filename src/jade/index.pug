@@ -132,7 +132,6 @@ body(class=headerContent ? 'headers-available': '')
 															span Response 
 															if transaction.props && transaction.props.statusCode
 																span.status-code #{transaction.props && transaction.props.statusCode}
-														- var body = transaction.content && transaction.content[0];
 														if transaction.props && transaction.props.headers && transaction.props.headers.length
 															.headers
 																.headers-heading.rhs-heading Response Headers
@@ -144,12 +143,13 @@ body(class=headerContent ? 'headers-available': '')
 																					.header-row
 																						span.key.hljs-attr #{header.key.content}: 
 																						span.value #{header.value.content}
-														if body && body.type === 'body'
-															.sample-response-body.rhs-heading Response Body
-															if(body.content.isJSON())
-																.sample-response-body-description.rhs-highlight.code !{JSON.stringify(JSON.parse(body.content), 0, 2)}
-															else
-																.sample-response-body-description.rhs-highlight.code !{body.content}
+														each body in transaction.content
+															if body && body.type === 'body'
+																.sample-response-body.rhs-heading Response Body
+																if(body.content.isJSON())
+																	.sample-response-body-description.rhs-highlight.code !{JSON.stringify(JSON.parse(body.content), 0, 2)}
+																else
+																	.sample-response-body-description.rhs-highlight.code !{body.content}
 								else if (transition.type === 'dataStructure')
 									.row
 										.col-6.lhs
