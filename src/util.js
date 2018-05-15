@@ -1,12 +1,12 @@
 var hljs = require('highlight.js');
 
 function slugify(text) {
-  return text.toString().toLowerCase()
+  return encodeURI(text.toString().toLowerCase()
     .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
+    .replace(/[\]\[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\\\^\_\{\|\}\~]/g, '')
     .replace(/\-\-+/g, '-')
     .replace(/^-+/, '')
-    .replace(/-+$/, '');
+    .replace(/-+$/, ''));
 }
 
 var _extends = Object.assign || function (target) { 
