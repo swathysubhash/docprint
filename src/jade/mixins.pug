@@ -16,6 +16,9 @@ mixin renderUrlParameters(params)
 					.right
 						if param.description
 							span.description #{param.description}
+						if param.wfn
+							span.description #{param.wfn}
+
 mixin renderAttributes(attrs, ds)
 	if (attrs.element === 'object' && attrs.content)
 		if attrs.content.length
